@@ -74,3 +74,15 @@ deploy:
   type: git
   repo: https://github.com/BigBadAlien/bigbadalien.github.io.git
   branch: master
+
+# Thumbnails
+thumbnails:
+  profiles:
+    large:
+      resize:
+        - 400
+        - 400
+    small:
+      resize:
+        - 200
+        - 200
