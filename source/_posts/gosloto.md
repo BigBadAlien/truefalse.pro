@@ -1,7 +1,7 @@
 ---
 title: Гослото
 date: 2014-07-03 00:00:00
-tags: Руку приложил, Разработка
+tags: [Руку приложил, Разработка]
 description: <a href="/gosloto"><img src="/gosloto/logo.png"></a>
 ---
 
