@@ -1,0 +1,3 @@
+[submodule "themes/truefalse"]
+	path = themes/truefalse
+	url = https://github.com/BigBadAlien/truefalse-hexo-theme.git
