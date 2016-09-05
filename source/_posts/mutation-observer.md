@@ -6,7 +6,7 @@ tags: WebAPI
 
 Дополнение к [MDN/Web APIs/MutationObserver](https://developer.mozilla.org/en/docs/Web/API/MutationObserver) о событиях изменения DOM с различными конфигурациями наблюдателя.
 
-#### Элементарный сэмпл
+#### Элементарный пример
 Наблюдаются все элементы и атрибуты:
 ``` html
 <div id="root" data-custom-attribute="Root attribute">
