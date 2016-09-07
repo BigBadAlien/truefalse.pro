@@ -2,7 +2,8 @@
 title: Гослото
 date: 2014-07-03 00:00:00
 tags: [Руку приложил, Разработка]
-description: <a href="/gosloto"><img src="/gosloto/logo.png"></a>
+link: https://www.artlebedev.ru/stoloto/site2/
+description: <img src="/gosloto/logo.png">
 ---
 
 [Анонс на artlebedev.ru](https://www.artlebedev.ru/stoloto/site2/)
