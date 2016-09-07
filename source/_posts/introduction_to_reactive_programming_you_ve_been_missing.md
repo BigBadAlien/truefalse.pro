@@ -1,5 +1,5 @@
 ---
-title: Недостающее введение в реактивное программирование
+title: Недостающее введение в Реактивное Программирование
 date: 2016-09-06 00:00:00
 tags: [Переводы, Технологии]
 description: <a href="/introduction_to_reactive_programming_you_ve_been_missing/"><img src="/introduction_to_reactive_programming_you_ve_been_missing/mantra.jpg"></a>
