@@ -67,6 +67,7 @@ theme: truefalse
 
 # Analytics
 google_analytics: "UA-81003165-1"
+yandex_metrika: "39479315"
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
