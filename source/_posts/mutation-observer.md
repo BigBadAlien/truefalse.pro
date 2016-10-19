@@ -4,7 +4,7 @@ date: 2016-07-15 12:22:49
 tags: WebAPI
 ---
 
-Дополнение к [MDN/Web APIs/MutationObserver](https://developer.mozilla.org/en/docs/Web/API/MutationObserver) о событиях изменения DOM с различными конфигурациями наблюдателя.
+Дополнение к [MDN/Web APIs/MutationObserver](https://developer.mozilla.org/en/docs/Web/API/MutationObserver) о событиях изменения DOM с различными конфигурациями наблюдателя. Мне понадобилось какое-то время чтобы разобраться с тем **как именно** работают опции наблюдателя и одна из причин – не очень логичный порядок опций которые на деле не автономны, а связаны между собой.
 
 #### Элементарный пример
 Наблюдаются все элементы и атрибуты:
@@ -125,4 +125,89 @@ $(function() {
   var mutations = observer.takeRecords();
   console.log('From takeRecords', mutations);
 });
+```
+
+### Для чего нужна библиотека [Mutation summary](https://github.com/rafaelw/mutation-summary)
+
+MutationObserver наблюдает только за событиями изменений документа – если вставлен сложный узел с множеством дочерних узлов, то MutationObserver отследит только одну вставку узла самого верхнего уровня. Отследить изменения определённых данных, которые находятся внутри вставленного узла иногда может быть затруднительно с помощью стандартного WebAPI. Нам нужно будет отслеживать родительский элемент и после его изменения проверять – изменились ли данные представления которые находятся ниже в иерархии.
+Пример такой проблемы – необходимость отслеживать изменения в ячейках таблицы при том, что с точки зрения реализации таблица заменяется построчно или даже полностью. Реализовать логику, которая отслеживает изменения всей таблицы или строки и после ищет – изменились данные ячеек которые нам важны может быть если не сложно, то достаточно громоздко.
+Чтобы не разбираться как именно изменяется документ, и строить под эти изменения запутанную логику, можно использовать библиотеку [Mutation summary](https://github.com/rafaelw/mutation-summary) которая вернёт действительно все значения, которые соответствуют переданным селекторам и корневому элементу:
+
+```js
+new MutationSummary({
+    callback: function(summaries) {
+        //Здесь мы получим все элементы
+        //по запросам queries в элементе rootNode.
+    },
+    rootNode: document.querySelector("#root"),
+    queries: [{element: ".foo"}, {element: ".bar"}]
+  })
+```
+
+### Использование вместе с RxJS
+Логично желание облегчить себе дальнейшую жизнь и представить MutationSummary в виде потока Rx:
+
+Файл `mutation-summary-stream.js`
+``` js
+import MutationSummary from "mutation-summary"
+import Rx from "rx";
+
+class InnerDisposable {
+  isDisposed:boolean = false;
+  observer:?MutationSummary = null;
+
+  constructor(observer) {
+    this.observer = observer;
+  }
+
+  dispose() {
+    if (!this.isDisposed) {
+      this.isDisposed = true;
+      this._m.disconnect();
+    }
+  }
+}
+
+class MutationSummaryObservable extends Rx.ObservableBase {
+  constructor(rootNode:Element, queries:Array<Object>) {
+    super();
+    this.rootNode = rootNode;
+    this.queries = queries;
+  }
+
+  dispose() {
+    return new InnerDisposable(this.observer);
+  }
+
+  subscribeCore(observable) {
+    this.observer = new MutationSummary({
+      callback: (summaries) => {
+        observable.onNext(summaries);
+      },
+      rootNode: this.rootNode,
+      queries: this.queries
+    })
+  }
+}
+
+export default function() {
+  return new MutationSummaryObservable(...arguments);
+};
+
+```
+
+Использование:
+
+``` js
+import fromMutationSummary from "mutation-summary-stream.js";
+import Rx from "rx";
+
+var mutationSummary = fromMutationSummary(
+  document.querySelector("#root"),
+  [{element: ".foo"}, {element: ".bar"}])
+  .flatMap(function (summary) {
+    return Rx.Observable.fromArray(summary);
+  }).subscribe((item) => {
+    console.log(item);
+  })
 ```
