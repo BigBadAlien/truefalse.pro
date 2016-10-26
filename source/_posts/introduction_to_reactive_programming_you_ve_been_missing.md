@@ -2,7 +2,7 @@
 title: Недостающее введение в Реактивное Программирование
 date: 2016-09-06 00:00:00
 tags: [Переводы, Технологии]
-description: <a href="/introduction_to_reactive_programming_you_ve_been_missing/"><img src="/introduction_to_reactive_programming_you_ve_been_missing/mantra.jpg"></a>
+description: <a href="/introduction_to_reactive_programming_you_ve_been_missing/"><img src="/introduction_to_reactive_programming_you_ve_been_missing/thumb-middle-mantra.jpg"></a>
 ---
 Просто изучение чего-то нового – это трудно, но может быть ещё труднее из-за отсутствия хорошего материала. Когда я начал, я пытался искать руководства, но нашёл только горсть практических пошаговых инструкций, которые были очень поверхностны и никогда не решали проблему построения архитектуры полностью. Документация библиотек часто не помогает, когда ты пытаешься понять смысл некоторых функций. Я имею ввиду, взгляните на это:
 > **Rx.Observable.prototype.flatMapLatest(selector, [thisArg])**

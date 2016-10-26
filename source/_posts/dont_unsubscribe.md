@@ -2,7 +2,7 @@
 title: RxJS - Не используйте unsubscribe непосредственно
 date: 2016-10-26 00:00:00
 tags: [Переводы, Технологии]
-description: Что ж, только не отказывайтесь от отписывания слишком сильно.
+description: <a href="/dont_unsubscribe/"><img src="/dont_unsubscribe/thumb-middle-just-dont-do-it.jpg"></a>
 ---
 Чтож, только не отказывайтесь от отписывания слишком сильно.
 
